@@ -27,6 +27,9 @@ defmodule Firenest.Topology do
   @typedoc "How named processes are identified by topology."
   @type name :: atom
 
+  @typedoc "Unique reference used for versioning nodes in topology."
+  @type id :: term
+
   @doc """
   Returns the child specification for a topology.
 
@@ -216,7 +219,7 @@ defmodule Firenest.Topology do
   won't be notified, only a `:named_down` event from the partition and
   a `:named_up` on reconnection.
   """
-  @spec sync_named(t, pid) :: {:ok, [{node, id :: term}]} | {:error, {:already_synced, pid}}
+  @spec sync_named(t, pid) :: {:ok, [{node, id}]} | {:error, {:already_synced, pid}}
   def sync_named(topology, pid) when is_pid(pid) do
     adapter!(topology).sync_named(topology, pid)
   end
